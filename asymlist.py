@@ -11,7 +11,6 @@ class Node:
             node_id: unique Node id
             is_bidirect (boolean): flags if the Node can be traversed in forward 
             and reverse direction (True) or only in forward direction (False) 
-                 
         '''
         self.id=node_id
         self.is_bidirect=is_bidirect
@@ -47,10 +46,13 @@ class AsymLList:
         # self.begin - pointer to the first Node of the AsymList
         # self.last - pointer to the last Node of the AsymLyst
         # self.current - pointer to the Node under consideration. 
-        #                used in fwd() and rwd() methods          
+        #                used in fwd() and rwd() methods 
+        # self.back - pointer to the last bidirectional node (defines way back)        
         self.begin=firstNode 
         self.last=firstNode
         self.current=None
+
+        
         
     def append(self,node_id,is_bidirect=True, **kwargs):
         ''' Appends a Node to the AsymLList.
@@ -59,7 +61,7 @@ class AsymLList:
                 node_id: unique node id
                 is_biderect (boolean): is node biderectional, default - True
 
-            Reurns the pointer to the last node.
+            Returns the pointer to the last node.
         '''
         newNode = self.nodeClass(node_id,is_bidirect, **kwargs)
         newNode.prev = self.back 
@@ -82,7 +84,7 @@ class AsymLList:
     
     def backward(self):
         ''' Returns a list of Nodes linked in the backward direction,
-            strting from the last bidirectional Node, or None if the 
+            starting from the last bidirectional Node, or None if the 
             list is empty.
         '''
         if self.back is None:
@@ -96,7 +98,7 @@ class AsymLList:
             
     def fwd(self):
         '''Traverses throgh the Nodes of the AsymLList in forward direction.
-           Returns the pointer to the next Node. when self.current points to the last Node,
+           Returns the pointer to the next Node. When self.current points to the last Node,
            turns over to the first Node 
         '''
         if self.current is None:
